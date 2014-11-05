@@ -13,7 +13,9 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:weightSum="1"
-        android:background="#ffccd6dd">
+        android:background="#ffccd6dd"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true">
 
         <TextView
             android:layout_width="match_parent"
@@ -26,7 +28,8 @@
             android:phoneNumber="false"
             android:gravity="center_vertical|center_horizontal"
             android:theme="@style/AppTheme"
-            android:background="#ff55acee" />
+            android:background="#ff55acee"
+            android:height="3dp" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -43,8 +46,10 @@
             android:text="First, we need to connect you to your new T2Q box."
             android:id="@+id/textView3"
             android:layout_gravity="center_horizontal"
-            android:layout_weight="0.08"
-            android:background="#ff8899a6" />
+            android:layout_weight="0.15"
+            android:background="#ff8899a6"
+            android:gravity="center_vertical|center_horizontal"
+            android:height="3dp" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -60,7 +65,10 @@
             android:text="Connect"
             android:id="@+id/button"
             android:layout_gravity="center_horizontal"
-            android:background="#ff55acee" />
+            android:background="#ff55acee"
+            android:focusable="false"
+            android:onClick="onConnectClick"
+            android:height="3dp" />
 
     </LinearLayout>
 </RelativeLayout>

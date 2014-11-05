@@ -54,6 +54,7 @@ public class Home extends Activity {
         }
     }
 
+    /**
     @Override
     public void onStart() {
         super.onStart();
@@ -71,6 +72,7 @@ public class Home extends Activity {
             }
         }
     }
+     **/
 
     @Override
     public synchronized void onResume() {
@@ -157,6 +159,18 @@ public class Home extends Activity {
     }
     // pair with the box via bluetooth
     public void onConnectClick(){
+        // If BT is not on, request that it be enabled.
+        // setupChat() will then be called during onActivityResult
+        if (!mBluetoothAdapter.isEnabled()) {
+            Intent enableIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+            startActivityForResult(enableIntent, REQUEST_ENABLE_BT);
+            // Otherwise, setup the chat session
+        } else {
+            if (mBTService == null) {
+                // Initialize the BluetoothChatService to perform bluetooth connections
+                mBTService = new BluetoothService(this, mHandler);
+            }
+        }
 
     }
 }
