@@ -9,6 +9,7 @@ import android.os.Message;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import java.io.IOException;
@@ -158,7 +159,7 @@ public class Home extends Activity {
         return super.onOptionsItemSelected(item);
     }
     // pair with the box via bluetooth
-    public void onConnectClick(){
+    public void onConnectClick(View v){
         // If BT is not on, request that it be enabled.
         // setupChat() will then be called during onActivityResult
         if (!mBluetoothAdapter.isEnabled()) {
