@@ -19,14 +19,19 @@ import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothServerSocket;
 import android.bluetooth.BluetoothSocket;
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
+import android.widget.Toast;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.UUID;
 
@@ -434,6 +439,43 @@ public class BluetoothService {
                 Log.e(TAG, "close() of connect socket failed", e);
             }
         }
+
+        /**
+         * Pairs with the box
+         * @param device
+         */
+        private void pairDevice(BluetoothDevice device) {
+            try {
+                Method method = device.getClass().getMethod("createBond", (Class[]) null);
+                method.invoke(device, (Object[]) null);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        /**
+         * Creates the broadcast receiver to connect to the box
+         */
+        private final BroadcastReceiver mPairReceiver = new BroadcastReceiver() {
+            public void onReceive(Context context, Intent intent) {
+                String action = intent.getAction();
+
+                if (BluetoothDevice.ACTION_BOND_STATE_CHANGED.equals(action)) {
+                    final int state        = intent.getIntExtra(BluetoothDevice.EXTRA_BOND_STATE, BluetoothDevice.ERROR);
+                    final int prevState    = intent.getIntExtra(BluetoothDevice.EXTRA_PREVIOUS_BOND_STATE, BluetoothDevice.ERROR);
+
+                    if (state == BluetoothDevice.BOND_BONDED && prevState == BluetoothDevice.BOND_BONDING) {
+                        Toast toast = Toast.makeText(context, "Paired", Toast.LENGTH_SHORT);
+                        toast.show();
+                        // showToast("Paired");
+                    } else if (state == BluetoothDevice.BOND_NONE && prevState == BluetoothDevice.BOND_BONDED){
+                        Toast toast = Toast.makeText(context, "Unpaired", Toast.LENGTH_SHORT);
+                        toast.show();
+                    }
+
+                }
+            }
+        };
     }
 }
 

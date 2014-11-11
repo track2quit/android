@@ -42,7 +42,7 @@ public class Home extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
+        setContentView(R.layout.intro);
 
         // Get local Bluetooth adapter
         mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
@@ -158,7 +158,12 @@ public class Home extends Activity {
 
         return super.onOptionsItemSelected(item);
     }
-    // pair with the box via bluetooth
+
+    /**
+     * Starts bluetooth on the phone
+     * TODO: Pair with box
+     * @param v
+     */
     public void onConnectClick(View v){
         // If BT is not on, request that it be enabled.
         // setupChat() will then be called during onActivityResult
@@ -172,6 +177,11 @@ public class Home extends Activity {
                 mBTService = new BluetoothService(this, mHandler);
             }
         }
+
+        //TODO: Pair with the box
+        //TODO: Run the broadcast listenter
+        // make sure that the short toast is long enough
+        // app save the box so that pairing is not necessary again
 
     }
 }
