@@ -16,7 +16,8 @@
         android:layout_weight="0.05"
         android:singleLine="false"
         android:gravity="center_vertical|center_horizontal"
-        android:textColor="#FFFFFF" />
+        android:textColor="#FFFFFF"
+        android:textSize="45sp" />
 
     <ImageView
         android:layout_width="101dp"
@@ -32,9 +33,9 @@
         android:text="@string/welcome"
         android:id="@+id/textView6"
         android:layout_gravity="center_horizontal"
-        android:layout_weight="0.05"
+        android:layout_weight="0.13"
         android:textColor="#FFFFFF"
-        android:textSize="55sp" />
+        android:textSize="45sp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -45,7 +46,8 @@
         android:layout_weight="0.05"
         android:text="@string/intro_message"
         android:gravity="center_vertical|center_horizontal"
-        android:textColor="#FFFFFF" />
+        android:textColor="#FFFFFF"
+        android:textSize="20dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -58,13 +60,14 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Start"
-        android:id="@+id/button2"
+        android:text="Start     "
+        android:id="@+id/intro_start"
         android:layout_gravity="right"
         android:layout_weight="0.14"
         android:textColor="#FFFFFF"
         android:visibility="visible"
         android:background="@android:color/transparent"
-        android:textSize="25dp" />
+        android:textSize="25dp"
+        android:onClick="onStartClick" />
 
 </LinearLayout>
