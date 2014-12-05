@@ -26,6 +26,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
+import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
 import java.io.IOException;
@@ -33,6 +34,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.lang.reflect.Method;
 import java.util.Arrays;
+import java.util.Set;
 import java.util.UUID;
 
 /**
@@ -47,7 +49,7 @@ public class BluetoothService {
     private static final boolean D = true;
 
     // Name for the SDP record when creating server socket
-    private static final String NAME = "Intro";
+    private static final String NAME = "IntroActivity";
 
     // Unique UUID for this application
     private static final UUID MY_UUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
@@ -67,7 +69,7 @@ public class BluetoothService {
     public static final int STATE_CONNECTED = 3;  // now connected to a remote device
 
     /**
-     * Constructor. Prepares a new Intro session.
+     * Constructor. Prepares a new IntroActivity session.
      * @param context  The UI Activity Context
      * @param handler  A Handler to send messages back to the UI Activity
      */
@@ -444,7 +446,7 @@ public class BluetoothService {
          * Pairs with the box
          * @param device
          */
-        private void pairDevice(BluetoothDevice device) {
+        public void pairDevice(BluetoothDevice device) {
             try {
                 Method method = device.getClass().getMethod("createBond", (Class[]) null);
                 method.invoke(device, (Object[]) null);
@@ -456,7 +458,7 @@ public class BluetoothService {
         /**
          * Creates the broadcast receiver to connect to the box
          */
-        private final BroadcastReceiver mPairReceiver = new BroadcastReceiver() {
+        public final BroadcastReceiver mPairReceiver = new BroadcastReceiver() {
             public void onReceive(Context context, Intent intent) {
                 String action = intent.getAction();
 
@@ -477,5 +479,29 @@ public class BluetoothService {
             }
         };
     }
+
+
+
+    /**
+     * Code taken from the android dev website
+     * @param mBluetoothAdapter
+     */
+    public synchronized void discover(BluetoothAdapter mBluetoothAdapter, ArrayAdapter mArrayAdapter){
+        Set<BluetoothDevice> pairedDevices = mBluetoothAdapter.getBondedDevices();
+        // If there are paired devices
+        if (pairedDevices.size() > 0) {
+            // Loop through paired devices
+            for (BluetoothDevice device : pairedDevices) {
+                // Add the name and address to an array adapter to show in a ListView
+                mArrayAdapter.add(device.getName() + "\n" + device.getAddress());
+            }
+        }
+        else{
+            mBluetoothAdapter.startDiscovery();
+            this.discover(mBluetoothAdapter, mArrayAdapter);
+
+        }
+    }
+
 }
 

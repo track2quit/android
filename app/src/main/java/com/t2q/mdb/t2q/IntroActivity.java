@@ -16,7 +16,7 @@ import android.widget.Toast;
 import java.io.IOException;
 
 
-public class Intro extends Activity {
+public class IntroActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

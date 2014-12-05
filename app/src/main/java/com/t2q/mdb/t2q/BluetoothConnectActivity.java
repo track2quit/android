@@ -2,16 +2,23 @@ package com.t2q.mdb.t2q;
 
 import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothDevice;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 import android.os.AsyncTask;
+
+import java.util.Set;
 
 /**
  * Created by mdb on 11/11/14.
@@ -38,6 +45,8 @@ public class BluetoothConnectActivity extends Activity {
     private BluetoothAdapter mBluetoothAdapter = null;
     // member object for BT service
     private BluetoothService mBTService = null;
+    // List of bt connections
+    private ArrayAdapter mArrayAdapter = null;
 
     // the progress bar
     ProgressBar progressBar = null;
@@ -153,7 +162,7 @@ public class BluetoothConnectActivity extends Activity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Intro/Up button, so long
+        // automatically handle clicks on the IntroActivity/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
@@ -171,6 +180,7 @@ public class BluetoothConnectActivity extends Activity {
      * @param v
      */
     public void onConnectClick(View v){
+
         // If BT is not on, request that it be enabled.
         // setupChat() will then be called during onActivityResult
         if (!mBluetoothAdapter.isEnabled()) {
@@ -180,37 +190,8 @@ public class BluetoothConnectActivity extends Activity {
         } else {
             if (mBTService == null) {
                 // Initialize the BluetoothChatService to perform bluetooth connections
-                mBTService = new BluetoothService(this, mHandler);
+                mBTService = new BTService(this, mHandler);
             }
         }
-        new AsyncTask<Void, Integer, Void>(){
-
-            @Override
-            protected Void doInBackground(Void... params) {
-                int progressStatus = 0;
-                while (progressStatus < 5000) {
-                    progressStatus++;
-                    publishProgress(progressStatus);
-                    try {
-                        Thread.sleep(1);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-                return null;
-            }
-
-            @Override
-            protected void onProgressUpdate(Integer... values) {
-                progressBar.setProgress(values[0]);
-
-            }
-        }.execute();
-
-        //TODO: Pair with the box
-        //TODO: Run the broadcast listenter
-        // make sure that the short toast is long enough
-        // app save the box so that pairing is not necessary again
-
     }
 }

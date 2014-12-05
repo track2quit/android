@@ -7,5 +7,10 @@
     <string name="intro_message">Track to Quit is an application designed to decrease and eventually eliminate your smoking habit. Through tracking your intake and reminding you of your goals, together we can beat smoking. Click below to get started.</string>
     <string name="welcome">Welcome</string>
     <string name="connect">First, we need to connect your application to the cigarette box via Bluetooth. Click Connect to pair.</string>
+    <string-array name="nav_items">
+        <item>Home</item>
+        <item>Progress</item>
+        <item>Social</item>
+    </string-array>
 
 </resources>

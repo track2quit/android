@@ -17,7 +17,7 @@
         android:singleLine="false"
         android:gravity="center_vertical|center_horizontal"
         android:textColor="#FFFFFF"
-        android:textSize="45sp" />
+        android:textSize="40sp" />
 
     <ImageView
         android:layout_width="101dp"
@@ -35,7 +35,7 @@
         android:layout_gravity="center_horizontal"
         android:layout_weight="0.13"
         android:textColor="#FFFFFF"
-        android:textSize="45sp" />
+        android:textSize="35sp" />
 
     <TextView
         android:layout_width="wrap_content"
